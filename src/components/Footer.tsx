@@ -101,8 +101,9 @@ export default function Footer() {
 
         <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
           <p className="text-xs text-gray-500 dark:text-gray-500">
-            FundpulseBD — Educational news portal for Bangladesh. Information only.
-            Not investment advice.
+            FundpulseBD — Educational news portal for Bangladesh. Information
+            only. Not investment advice. Not affiliated with BSEC, Bangladesh
+            Bank, or NSD.
           </p>
         </div>
       </div>

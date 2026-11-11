@@ -51,6 +51,19 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: [
+    {
+      url: "/favicon.png",
+    },
+    {
+      url: "/favicon.png",
+      sizes: "1254x1254",
+      type: "image/png",
+    },
+  ],
+  appleTouchIcon: {
+    url: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

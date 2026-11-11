@@ -23,6 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily" as ChangeFrequency,
       priority: 0.8,
     })),
+    {
+      url: `${SITE_URL}/news`,
+      lastModified: new Date(),
+      changeFrequency: "daily" as ChangeFrequency,
+      priority: 0.9,
+    },
     ...articles.map((article) => ({
       url: `${SITE_URL}/news/${article.slug}`,
       lastModified: new Date(article.published_date),

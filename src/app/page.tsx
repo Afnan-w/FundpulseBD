@@ -1,5 +1,6 @@
 import { getLatestArticles, getAllCategories, categoryLabel } from "@/lib/data";
 import ArticleCard from "@/components/ArticleCard";
+import Link from "next/link";
 
 const CATEGORY_ORDER = [
   "official-notices",
@@ -16,7 +17,7 @@ export const metadata = {
 };
 
 export default function Home() {
-  const articles = getLatestArticles(20);
+  const articles = getLatestArticles(5);
   const categories = getAllCategories();
 
   const sortedCategories = [...categories].sort(
@@ -70,6 +71,15 @@ export default function Home() {
             <p className="text-gray-500 dark:text-gray-400">No articles found.</p>
           </div>
         )}
+      </div>
+
+      <div className="text-center mt-8">
+        <Link
+          href="/news"
+          className="inline-block px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition-colors"
+        >
+          View all news
+        </Link>
       </div>
     </div>
   );

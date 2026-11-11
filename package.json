@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "fetch-news": "tsx scripts/fetch-news.ts",
+    "fetch:funds": "tsx scripts/fetch-funds.ts",
+    "fetch:rates": "tsx scripts/fetch-rates.ts",
     "test": "vitest run"
   },
   "dependencies": {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import DarkModeToggle from "./DarkModeToggle";
+import SiteLogo from "./SiteLogo";
 
 const CATEGORIES = [
   { key: "official-notices", label: "Official Notices" },
@@ -21,19 +22,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2"
-          >
-            <img
-              src="/sitelogo.png"
-              alt="FundpulseBD"
-              width="32"
-              height="32"
-              className="h-6 w-6"
-            />
-            <span className="text-xl font-bold text-gray-900 dark:text-white">FundpulseBD</span>
-          </Link>
+          <SiteLogo />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">

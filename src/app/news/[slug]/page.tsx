@@ -1,4 +1,4 @@
-import { getArticleBySlug, getRelatedArticles, formatDate } from "@/lib/data";
+import { getArticleBySlug, getRelatedArticles, formatDate, categoryLabel } from "@/lib/data";
 import ShareButtons from "@/components/ShareButtons";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -8,10 +8,12 @@ interface ArticlePageProps {
   params: { slug: string };
 }
 
-import articlesData from "@/data/articles.json";
+import newsData from "@/data/news.json";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
 
 export function generateStaticParams() {
-  return articlesData.articles.map((a) => ({ slug: a.slug }));
+  return newsData.articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
@@ -20,6 +22,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   if (!article) {
     return { title: "Article not found" };
   }
+  const articleUrl = `${SITE_URL}/news/${article.slug}`;
   return {
     title: `${article.title} | FundpulseBD`,
     description: article.summary,
@@ -29,6 +32,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       type: "article",
       publishedTime: article.published_date,
       authors: [article.source_name],
+      url: articleUrl,
     },
     twitter: {
       card: "summary_large_image",
@@ -36,7 +40,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       description: article.summary,
     },
     alternates: {
-      canonical: `/news/${article.slug}`,
+      canonical: articleUrl,
     },
   };
 }
@@ -48,6 +52,34 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
   const related = getRelatedArticles(article.slug, article.category, 3);
+  const articleUrl = `${SITE_URL}/news/${article.slug}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.summary,
+    url: articleUrl,
+    datePublished: article.published_date,
+    dateModified: article.published_date,
+    mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+    publisher: {
+      "@type": "NewsMediaOrganization",
+      name: "FundpulseBD",
+      url: "https://fundpulsebd.com",
+    },
+    sourceOrganization: {
+      "@type": "Organization",
+      name: article.source_name,
+    },
+    articleSection: categoryLabel(article.category),
+    inLanguage: "en",
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <nav className="mb-6">
@@ -85,6 +117,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <strong className="text-yellow-800 dark:text-yellow-200">Disclaimer:</strong> FundpulseBD is an educational news portal. This content is for information only and does not constitute investment advice.
           </p>
         </div>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-8">
+          Information only. Not investment advice. Not affiliated with BSEC, Bangladesh Bank, or NSD.
+        </p>
         {related.length > 0 && (
           <section className="border-t border-gray-200 dark:border-gray-800 pt-8">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Related articles</h2>
