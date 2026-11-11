@@ -1,0 +1,61 @@
+﻿{
+  "sources": [
+    {
+      "name": "Bangladesh Securities and Exchange Commission (BSEC)",
+      "type": "rss",
+      "url": "https://www.bsec.gov.bd/rss.xml",
+      "category": "official-notices",
+      "enabled": false
+    },
+    {
+      "name": "Bangladesh Bank",
+      "type": "rss",
+      "url": "https://www.bb.org.bd/rss.xml",
+      "category": "official-notices",
+      "enabled": false
+    },
+    {
+      "name": "National Savings Directorate (NSD)",
+      "type": "rss",
+      "url": "https://www.nsd.gov.bd/rss.xml",
+      "category": "sonchayapatra-savings",
+      "enabled": false
+    },
+    {
+      "name": "The Daily Star Business",
+      "type": "rss",
+      "url": "https://www.thedailystar.net/business/rss.xml",
+      "category": "market-news",
+      "enabled": false
+    },
+    {
+      "name": "Prothom Alo Business",
+      "type": "rss",
+      "url": "https://en.prothomalo.com/business/rss.xml",
+      "category": "market-news",
+      "enabled": false
+    },
+    {
+      "name": "Dhaka Tribune Business",
+      "type": "rss",
+      "url": "https://www.dhakatribune.com/business/feed/",
+      "category": "market-news",
+      "enabled": false
+    },
+    {
+      "name": "Financial Express Bangladesh",
+      "type": "rss",
+      "url": "https://thefinancialexpress.com.bd/rss.xml",
+      "category": "market-news",
+      "enabled": false
+    },
+    {
+      "name": "Business Today Bangladesh",
+      "type": "rss",
+      "url": "https://businesstodaybd.com/rss.xml",
+      "category": "market-news",
+      "enabled": false
+    }
+  ],
+  "generated_at": "2026-01-01T00:00:00Z"
+}

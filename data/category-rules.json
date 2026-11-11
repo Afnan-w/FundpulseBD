@@ -1,0 +1,49 @@
+﻿{
+  "rules": [
+    {
+      "category": "official-notices",
+      "keywords": [
+        "bsec", "securities and exchange commission", "bangladesh bank", "bb.org.bd", "monetary policy", "interest rate", "circular", "directive", "notification", "ক komisyon", "সিকিউরিটিজ", "বাংলাদেশ ব্যাংক", "নির্দেশনা", "সুবচনা"
+      ],
+      "bangla_keywords": [
+        "সিকিউরিটিজ ইন্ডExchange কমিশন", "বাংলাদেশ ব্যাংক", "মুদ্রানীতি", "সুবচনা", "নির্দেশনা"
+      ]
+    },
+    {
+      "category": "sonchayapatra-savings",
+      "keywords": [
+        "sonchayapatra", "sonchaya patra", "national savings", "nsd", "savings certificate", "sanchaypatra", "পত্র", "সঞ্চয়", "অবधি জমা", "পঞ্চ ساله", "বাংলাদেশ সঞ্চয়পত্র", "ন্যাশনাল সেভিংস", "three years", "five years", "পোস্ট অফিস সঞ্চয়"
+      ],
+      "bangla_keywords": [
+        "সঞ্চয়পত্র", "সঞ্চয়", "পত্র", "অবধি", "পঞ্চ বছর", "তিন বছর", "সঞ্চয় নिदেশকтали"
+      ]
+    },
+    {
+      "category": "mutual-growth-funds",
+      "keywords": [
+        "mutual fund", "growth fund", "এমইউটিএফ", "মিউচুয়াল ফান্ড", "গ্রথ ফান্ড", "unit fund", "এসসিবি মিউচুয়াল", "বangunan মিউচুয়াল", "epoch mutual fund", "icb", "investment corporation", "পুঁজিবাজার", "股市", "stock market", "股票", "share price", "ডিএসই", "চট্টগ্রাম স্টক এক্সচেঞ্জ"
+      ],
+      "bangla_keywords": [
+        "মিউচুয়াল ফান্ড", "গ্রথ ফান্ড", "ইউনিট ফান্ড", "পুঁজিবাজার", "ডিএসই", "চট্টগ্রাম স্টক", "শেয়ার দাম", "ইসিবি"
+      ]
+    },
+    {
+      "category": "market-news",
+      "keywords": [
+        "stock market", "share market", "stock exchange", "dse", "ctse", "chittagong stock exchange", "dhaka stock exchange", "share price", "market index", "turnover", "broker", "listed company", "ipo", "initial public offering", "ডিএসই", "চট্টগ্রাম", "স্টock", "শেয়ার", "বাজার", "ইপিও"
+      ],
+      "bangla_keywords": [
+        "শেয়ার বাজার", "স্টক এক্সচেঞ্জ", "ডিএসই", "চট্টগ্রাম স্টক এক্সচেঞ্জ", "শেয়ার দাম", "ইপিও", "তালিকাভুক্ত কোম্পানি"
+      ]
+    },
+    {
+      "category": "explainers",
+      "keywords": [
+        "explainer", "how to", "guide", "what is", "mean", "দ্বারা", "কারণ", "প্রক্রিয়া", "পদক্ষেপ", "সহজে", "বোঝা", "জানুন", "কিভাবে", "কোন", "কীভাবে", "তথ্য", "শিক্ষা"
+      ],
+      "bangla_keywords": [
+        "কীভাবে", "কিভাবে", "বোঝা", "গイド", "ব্যাখ্যা", "প্রক্রিয়া", "জানুন", "শিক্ষা", "সমझুনি"
+      ]
+    }
+  ]
+}
