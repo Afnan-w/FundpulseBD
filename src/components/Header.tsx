@@ -23,13 +23,16 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white"
+            className="flex items-center gap-2"
           >
-            <span className="relative inline-block">
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
-              <span className="absolute -inset-0.5 h-full w-full rounded-full opacity-20 animate-pulse bg-emerald-500"></span>
-            </span>
-            <span>FundpulseBD</span>
+            <img
+              src="/sitelogo.png"
+              alt="FundpulseBD"
+              width="32"
+              height="32"
+              className="h-6 w-6"
+            />
+            <span className="text-xl font-bold text-gray-900 dark:text-white">FundpulseBD</span>
           </Link>
 
           {/* Desktop Navigation */}
