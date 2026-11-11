@@ -2,7 +2,7 @@
 import { join } from "path";
 
 const ROOT = process.cwd();
-const DATA_DIR = join(ROOT, "data");
+const DATA_DIR = join(ROOT, "src/data");
 const ARTICLES_PATH = join(DATA_DIR, "articles.json");
 
 export interface Article {

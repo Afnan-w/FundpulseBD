@@ -3,7 +3,7 @@ import { join } from "path";
 import * as cheerio from "cheerio";
 
 const ROOT = process.cwd();
-const DATA_DIR = join(ROOT, "data");
+const DATA_DIR = join(ROOT, "src/data");
 const SOURCES_PATH = join(DATA_DIR, "sources.json");
 const ARTICLES_PATH = join(DATA_DIR, "articles.json");
 const CATEGORY_RULES_PATH = join(DATA_DIR, "category-rules.json");

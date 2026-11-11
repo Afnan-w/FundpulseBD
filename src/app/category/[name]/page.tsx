@@ -26,18 +26,20 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const label = CATEGORY_LABELS[params.name] || params.name;
+  const p = await params;
+  const label = CATEGORY_LABELS[p.name] || p.name;
   return {
     title: `${label} | FundpulseBD`,
     description: `Latest ${label.toLowerCase()} from Bangladesh. Educational content only — not investment advice.`,
   };
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const label = CATEGORY_LABELS[params.name] || params.name;
-  const articles = getArticlesByCategory(params.name);
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const p = await params;
+  const label = CATEGORY_LABELS[p.name] || p.name;
+  const articles = getArticlesByCategory(p.name);
 
-  if (articles.length === 0 && !["official-notices", "sonchayapatra-savings", "mutual-growth-funds", "market-news", "explainers"].includes(params.name)) {
+  if (articles.length === 0 && !["official-notices", "sonchayapatra-savings", "mutual-growth-funds", "market-news", "explainers"].includes(p.name)) {
     notFound();
   }
 
