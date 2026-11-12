@@ -1,67 +1,76 @@
-import { getArticlesByCategory, categoryLabel } from "@/lib/data";
+import { getArticlesByCategory, getAllCategories } from "@/lib/articles";
 import ArticleCard from "@/components/ArticleCard";
-import { Metadata } from "next";
+import { Metadata as NextMetadata } from "next";
 import { notFound } from "next/navigation";
+import { categoryLabel, categoryDescription } from "@/lib/content";
 
 interface CategoryPageProps {
   params: { name: string };
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  "official-notices": "Official Notices",
-  "sonchayapatra-savings": "Sonchayapatra & Savings",
-  "mutual-growth-funds": "Mutual & Growth Funds",
-  "market-news": "Market News",
-  "explainers": "Explainers",
-};
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
 
 export function generateStaticParams() {
-  return [
-    { name: "official-notices" },
-    { name: "sonchayapatra-savings" },
-    { name: "mutual-growth-funds" },
-    { name: "market-news" },
-    { name: "explainers" },
-  ];
+  return getAllCategories().map((name) => ({ name }));
 }
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<NextMetadata> {
   const p = await params;
-  const label = CATEGORY_LABELS[p.name] || p.name;
+  const label = categoryLabel(p.name);
   return {
     title: `${label} | FundpulseBD`,
-    description: `Latest ${label.toLowerCase()} from Bangladesh. Educational content only — not investment advice.`,
+    description: categoryDescription(p.name),
+    openGraph: {
+      title: `${label} | FundpulseBD`,
+      description: categoryDescription(p.name),
+      type: "website",
+      url: `${SITE_URL}/category/${p.name}`,
+    },
+    alternates: {
+      canonical: `${SITE_URL}/category/${p.name}`,
+    },
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({
+  params,
+}: CategoryPageProps) {
   const p = await params;
-  const label = CATEGORY_LABELS[p.name] || p.name;
+  const label = categoryLabel(p.name);
   const articles = getArticlesByCategory(p.name);
+  const allCategories = getAllCategories();
 
-  if (articles.length === 0 && !["official-notices", "sonchayapatra-savings", "mutual-growth-funds", "market-news", "explainers"].includes(p.name)) {
+  if (!allCategories.includes(p.name)) {
     notFound();
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           {label}
         </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          {articles.length} article{articles.length !== 1 ? "s" : ""} in this category.
+        <p className="text-gray-600 dark:text-gray-400 text-lg">
+          {categoryDescription(p.name)}
+        </p>
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-500">
+          {articles.length} {articles.length === 1 ? "article" : "articles"} in
+          this category.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {articles.length > 0 ? (
           articles.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))
         ) : (
-          <div className="col-span-3 text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400">No articles found in this category.</p>
+          <div className="col-span-3 text-center py-16">
+            <p className="text-gray-500 dark:text-gray-400">
+              No articles found in this category.
+            </p>
           </div>
         )}
       </div>

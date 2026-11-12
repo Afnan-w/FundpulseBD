@@ -15,12 +15,85 @@ FundpulseBD is a Bangladeshi savings and investment education news portal. It au
 ## Tech Stack
 
 - Next.js 16 (App Router) with TypeScript and Tailwind CSS
-- Content stored as JSON files in /data (no database)
-- Node.js fetch script at /scripts/fetch-news.ts
-- GitHub Actions for automated fetching every 2 hours
+- File-based content: Markdown/MDX articles in `/content/articles/` (no database)
+- RSS feed at `/feed.xml`, sitemap at `/sitemap.xml`
 - Deploy-ready for Vercel
 
-## Getting Started
+## Content: How to publish a new article
+
+FundpulseBD uses a file-based content system. To publish a new article, just add one `.mdx` file and rebuild — no CMS, no database, no login.
+
+### 1. Create the article file
+
+Create a new file at `content/articles/<slug>.mdx` with YAML frontmatter followed by the article body (Markdown/MDX):
+
+```mdx
+---
+title: BSEC Issues New Circular on Mutual Fund Disclosure
+slug: bsec-new-circular-mutual-fund-disclosure-2025
+date: 2025-11-15
+source: Bangladesh Securities and Exchange Commission (BSEC)
+sourceUrl: https://www.bsec.gov.bd/
+category: official-notices
+tags: ["BSEC", "mutual fund", "disclosure"]
+excerpt: BSEC has issued a new circular requiring enhanced disclosure from mutual funds.
+featuredImage: null
+readingTime: 4
+lastUpdated: 2025-11-15
+---
+
+Your article summary goes here. Write in short, clear, neutral paragraphs. End with the standard disclaimer (see below).
+
+> **Disclaimer:** FundpulseBD is an educational news portal. This content is for general information only and does not constitute investment advice. We are not affiliated with BSEC, Bangladesh Bank, or the National Savings Directorate. Always consult a qualified financial advisor before making investment decisions.
+```
+
+### Frontmatter fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `title` | Yes | Article headline |
+| `slug` | Yes | URL-friendly identifier (e.g. `bsec-new-circular-2025`). Must be unique. |
+| `date` | Yes | Publication date (YYYY-MM-DD) |
+| `source` | Yes | Original publisher name |
+| `sourceUrl` | Yes | Link to the original source |
+| `category` | Yes | One of: `official-notices`, `sonchayapatra-savings`, `mutual-growth-funds`, `market-news`, `explainers` |
+| `tags` | Yes | Array of topic tags |
+| `excerpt` | Yes | Short summary used in listings and meta descriptions |
+| `featuredImage` | No | Optional image URL; falls back to the generated OG image |
+| `readingTime` | No | Auto-computed from body length if omitted |
+| `lastUpdated` | No | Date the article was last revised |
+
+### 2. Editorial rules
+
+- Write original summaries only — never reproduce full external article text.
+- Always link to the original source via `sourceUrl`.
+- Keep the tone educational, neutral, and Bangladesh-focused.
+- Always end the article with the educational / not-investment-advice disclaimer.
+- Do not give buy/sell recommendations or name specific securities as picks.
+
+### 3. Build and deploy
+
+```bash
+npm run build    # static pages, RSS, and sitemap are generated automatically
+npm start        # production server
+# or push to GitHub — Vercel deploys on push
+```
+
+### 4. Validate an article
+
+A small validation script lists all articles and reports missing frontmatter fields:
+
+```bash
+npx tsx scripts/validate-content.ts
+```
+
+## Adding a News Source
+
+The legacy fetch scripts under `/scripts` are kept for reference. New content is now added by creating MDX files directly rather than by automated fetching.
+
+## Deployment (Vercel)
+
+...
 
 ### Prerequisites
 

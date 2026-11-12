@@ -1,11 +1,11 @@
 // @ts-ignore - Next.js 16 route handler compatibility
 // @ts-nocheck
-import { getLatestArticles } from "@/lib/data";
+import { getAllArticles } from "@/lib/articles";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
 
 export async function GET() {
-  const articles = getLatestArticles(50);
+  const articles = getAllArticles().slice(0, 50);
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -22,9 +22,9 @@ export async function GET() {
       <title><![CDATA[${a.title}]]></title>
       <link>${SITE_URL}/news/${a.slug}</link>
       <guid isPermaLink="false">${SITE_URL}/news/${a.slug}</guid>
-      <pubDate>${new Date(a.published_date).toUTCString()}</pubDate>
-      <description><![CDATA[${a.summary}]]></description>
-      <source>${a.source_name}</source>
+      <pubDate>${new Date(a.date).toUTCString()}</pubDate>
+      <description><![CDATA[${a.excerpt}]]></description>
+      <source>${a.source}</source>
     </item>`
     )
       .join("\n")}

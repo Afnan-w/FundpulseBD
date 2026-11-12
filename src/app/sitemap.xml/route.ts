@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { getAllArticles, getAllCategories } from "@/lib/data";
+import { getAllArticles, getAllCategories } from "@/lib/articles";
 import { MetadataRoute } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...articles.map((article) => ({
       url: `${SITE_URL}/news/${article.slug}`,
-      lastModified: new Date(article.published_date),
+      lastModified: new Date(article.lastUpdated || article.date),
       changeFrequency: "weekly" as ChangeFrequency,
       priority: 0.7,
     })),
