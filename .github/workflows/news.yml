@@ -1,16 +1,24 @@
-name: Fetch News
+name: Automated News Briefs
+
+# Runs twice daily: generates short MDX news briefs from public Google News
+# RSS headlines (aggregating TBS, Financial Express, BSS, Daily Star, etc.),
+# validates them, and commits them to the repo so the site redeploys.
 
 on:
   schedule:
-    - cron: "0 */2 * * *" # Every 2 hours
+    - cron: "0 2 * * *" # 02:00 UTC (08:00 BD time)
+    - cron: "0 14 * * *" # 14:00 UTC (20:00 BD time)
   workflow_dispatch:
 
 permissions:
   contents: write
-  pull-requests: write
+
+concurrency:
+  group: auto-news
+  cancel-in-progress: false
 
 jobs:
-  fetch-news:
+  auto-news:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,25 +30,28 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run fetch-news script
-        run: npm run fetch-news
+      - name: Generate news briefs
+        run: npm run auto-news
         env:
           NODE_ENV: production
 
-      - name: Commit updated data files if changed
+      - name: Validate content
+        run: npx tsx scripts/validate-content.ts
+
+      - name: Commit new briefs if changed
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name "fundpulsebd-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/news.json src/data/articles.json src/data/news-sources.json
+          git add content/articles src/data/auto-news-state.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore(data): update news articles [skip ci]"
+            git commit -m "Auto-update: add latest news briefs [skip ci]"
             git push
           fi

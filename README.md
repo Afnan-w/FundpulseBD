@@ -87,9 +87,27 @@ A small validation script lists all articles and reports missing frontmatter fie
 npx tsx scripts/validate-content.ts
 ```
 
+## Automated News Briefs (free, no API keys)
+
+The site updates itself. A GitHub Actions workflow (`.github/workflows/news.yml`) runs **twice daily** and:
+
+1. Pulls fresh headlines from public Google News RSS queries (aggregating TBS, The Financial Express, BSS, New Age, The Daily Star, etc.) plus The Daily Star's direct business feed.
+2. Filters to the site's topics (BSEC, Bangladesh Bank, savings certificates, DSE, mutual funds, deposit rates), keeps only Bangladesh-relevant items from the last 14 days.
+3. Deduplicates against everything already published (a state file plus title-similarity matching).
+4. Writes up to 3 short "news brief" MDX articles per run to `content/articles/`, each clearly labelled as an automated brief, with a link to the original publisher and the standard disclaimer.
+5. Validates the content and commits new briefs to the repo — which redeploys the site.
+
+No news API keys, no cost, no manual step. Run it manually anytime with:
+
+```bash
+npm run auto-news
+```
+
+To add, remove, or retune the headline queries, edit `QUERIES` in `scripts/auto-news.ts`.
+
 ## Adding a News Source
 
-The legacy fetch scripts under `/scripts` are kept for reference. New content is now added by creating MDX files directly rather than by automated fetching.
+The legacy fetch scripts under `/scripts` are kept for reference. New content is now added either by creating MDX files directly or by the automated news-brief workflow above.
 
 ## Deployment (Vercel)
 
@@ -121,17 +139,7 @@ npm test
 
 ### Fetching News
 
-npm run fetch-news
-
-Note: All sources in data/sources.json are marked enabled: false by default. You must enable them after confirming each source's terms of service allow fetching.
-
-## Adding a News Source
-
-1. Edit data/sources.json
-2. Add a new source entry.
-
-3. Set enabled: true only after confirming the source permits automated fetching.
-4. Run npm run fetch-news to collect articles.
+The automated briefs workflow has replaced manual fetching. The legacy `npm run fetch-news` script and the sources in `data/sources.json` are kept for reference only.
 
 ## Deployment (Vercel)
 
