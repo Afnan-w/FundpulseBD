@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import NavChart from "@/components/NavChart";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
+import { getSiteUrl } from "@/lib/utils";
+
+const SITE_URL = getSiteUrl();
 
 interface FundPageProps {
   params: { slug: string };

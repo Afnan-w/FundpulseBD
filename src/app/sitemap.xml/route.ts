@@ -2,7 +2,9 @@
 import { getAllArticles, getAllCategories } from "@/lib/articles";
 import { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
+import { getSiteUrl } from "@/lib/utils";
+
+const SITE_URL = getSiteUrl();
 
 type ChangeFrequency = "hourly" | "always" | "daily" | "weekly" | "monthly" | "yearly" | "never";
 

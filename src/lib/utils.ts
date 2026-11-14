@@ -30,9 +30,26 @@ export function truncateSummary(text: string, maxLength: number = 300): string {
   return clean.substring(0, maxLength).trimEnd() + "\u2026";
 }
 
+/**
+ * Resolve the site's public base URL.
+ *
+ * Order of precedence:
+ * 1. NEXT_PUBLIC_SITE_URL — explicit override (set in Vercel env vars)
+ * 2. VERCEL_PROJECT_PRODUCTION_URL — auto-set by Vercel in production
+ * 3. VERCEL_URL — auto-set by Vercel per deployment
+ * 4. Fallback: the Vercel app domain
+ */
+export function getSiteUrl(): string {
+  const raw =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.VERCEL_URL ||
+    "https://fundpulsebd.vercel.app";
+  return ("https://" + raw.replace(/^https?:\/\//, "")).replace(/\/$/, "");
+}
+
 export function canonicalUrl(path: string): string {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
-  return base.replace(/\/$/, "") + path;
+  return getSiteUrl() + path;
 }
 
 export function ogImageUrl(title: string): string {

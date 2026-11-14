@@ -8,7 +8,9 @@ interface CategoryPageProps {
   params: { name: string };
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
+import { getSiteUrl } from "@/lib/utils";
+
+const SITE_URL = getSiteUrl();
 
 export function generateStaticParams() {
   return getAllCategories().map((name) => ({ name }));

@@ -6,12 +6,13 @@ import Link from "next/link";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
 import { formatDate, categoryLabel } from "@/lib/content";
+import { getSiteUrl } from "@/lib/utils";
 
 interface ArticlePageProps {
   params: { slug: string };
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
+const SITE_URL = getSiteUrl();
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -76,7 +77,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     publisher: {
       "@type": "Organization",
       name: "FundpulseBD",
-      url: "https://fundpulsebd.com",
+      url: SITE_URL,
     },
     author: {
       "@type": "Organization",

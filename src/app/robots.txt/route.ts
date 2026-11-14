@@ -2,7 +2,9 @@
 // @ts-nocheck
 import { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
+import { getSiteUrl } from "@/lib/utils";
+
+const SITE_URL = getSiteUrl();
 
 export default function robots(): MetadataRoute.Robots {
   return {

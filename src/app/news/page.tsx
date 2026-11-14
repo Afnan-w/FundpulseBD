@@ -3,7 +3,9 @@ import { Metadata } from "next";
 import NewsListing from "@/components/NewsListing";
 import Link from "next/link";
 import NewsletterSignup from "@/components/NewsletterSignup";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
+import { getSiteUrl } from "@/lib/utils";
+
+const SITE_URL = getSiteUrl();
 
 interface NewsPageProps {
   searchParams: Promise<{ category?: string; q?: string }>;

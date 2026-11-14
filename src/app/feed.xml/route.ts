@@ -2,7 +2,9 @@
 // @ts-nocheck
 import { getAllArticles } from "@/lib/articles";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://fundpulsebd.com";
+import { getSiteUrl } from "@/lib/utils";
+
+const SITE_URL = getSiteUrl();
 
 export async function GET() {
   const articles = getAllArticles().slice(0, 50);
