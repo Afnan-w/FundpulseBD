@@ -35,15 +35,15 @@ export default async function NewsPage({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <p className="label-mono text-emerald-600 dark:text-emerald-400 mb-3">All coverage</p>
+        <h1 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
           News
         </h1>
         <p className="text-gray-600 dark:text-gray-400 text-lg">
           Savings and fund news for Bangladesh, explained simply.
         </p>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-500">
-          Information only. Not investment advice. Not affiliated with BSEC,
-          Bangladesh Bank, or NSD.
+        <p className="label-mono text-gray-400 dark:text-gray-500 mt-3">
+          Educational only · Not investment advice
         </p>
       </div>
 

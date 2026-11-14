@@ -22,7 +22,9 @@ export default function SiteLogo() {
         sizes="24px"
         className="h-6 w-6"
       />
-      <span className="text-xl font-bold text-gray-900 dark:text-white">FundpulseBD</span>
+      <span className="font-display text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+        Fund<span className="text-emerald-600 dark:text-emerald-400">pulse</span>BD
+      </span>
     </Link>
   );
 }

@@ -18,11 +18,19 @@ export const metadata = {
     "Latest news about Sonchayapatra, National Savings Directorate schemes, Bangladesh Bank notices, BSEC notices, mutual funds, and growth funds. Educational content only — not investment advice.",
 };
 
+function formatDateStr(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 export default function Home() {
   const articles = getAllArticles();
   const categories = getAllCategories();
   const featured = articles[0];
-  const latest = articles.slice(1, 6);
+  const latest = articles.slice(1, 7);
 
   const sortedCategories = [...categories].sort(
     (a, b) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b),
@@ -34,133 +42,116 @@ export default function Home() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
-          FundpulseBD
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl">
-          Savings and fund news for Bangladesh, explained simply.
+      {/* Hero */}
+      <div className="mb-10 pb-8 border-b border-gray-200 dark:border-gray-800">
+        <p className="label-mono text-emerald-600 dark:text-emerald-400 mb-3 flex items-center gap-2">
+          <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          BD finance · daily briefing
         </p>
-        <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-          Educational content only. Not investment advice. Not affiliated with
-          BSEC, Bangladesh Bank, or NSD.
+        <h1 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 max-w-3xl leading-[1.1]">
+          Savings &amp; fund news for Bangladesh, explained simply.
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400 text-base md:text-lg max-w-2xl">
+          Sonchayapatra rates, BSEC and Bangladesh Bank notices, mutual funds
+          and market moves — tracked and summarised for you.
+        </p>
+        <p className="label-mono text-gray-400 dark:text-gray-500 mt-4">
+          Educational only · Not investment advice
         </p>
       </div>
 
-      {/* Featured article */}
+      {/* Featured article — dark "top story" panel */}
       {featured && (
-        <section className="mb-12 border border-gray-200 dark:border-gray-800 rounded-2xl bg-white dark:bg-gray-900 p-6 md:p-8 overflow-hidden">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/3 flex-shrink-0">
-              <Link
-                href={`/news/${featured.slug}`}
-                className="block"
-              >
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">
-                  {featured.title}
-                </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                  {featured.excerpt}
-                </p>
-                <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                  <span>{featured.source}</span>
-                  <span className="h-3 w-px bg-gray-300 dark:bg-gray-700"></span>
-                  <time dateTime={featured.date}>
-                    {new Date(featured.date).toLocaleDateString(undefined, {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </time>
+        <section className="mb-12">
+          <div className="rounded-2xl bg-gray-950 dark:bg-black border border-gray-800 text-white p-6 md:p-8 overflow-hidden relative">
+            <div className="absolute top-0 left-0 h-0.5 w-full bg-gradient-to-r from-emerald-500 via-emerald-400/40 to-transparent"></div>
+            <div className="flex flex-col md:flex-row md:items-start gap-6">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                  <span className="label-mono text-emerald-400">Top story</span>
+                  <span className="h-3 w-px bg-gray-700"></span>
+                  <span className="label-mono text-gray-500">
+                    {categoryLabel(featured.category)}
+                  </span>
                 </div>
-              </Link>
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 text-xs font-medium bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-800 px-3 py-1 rounded-full inline-block mb-4">
-                {categoryLabel(featured.category)}
+                <Link href={`/news/${featured.slug}`} className="group">
+                  <h2 className="font-display text-2xl md:text-3xl font-bold leading-tight mb-3 group-hover:text-emerald-300 transition-colors">
+                    {featured.title}
+                  </h2>
+                  <p className="text-sm md:text-base text-gray-400 mb-5 line-clamp-3 max-w-2xl leading-relaxed">
+                    {featured.excerpt}
+                  </p>
+                </Link>
+                <div className="flex flex-wrap items-center gap-3 label-mono text-gray-500">
+                  <span className="text-gray-400">{featured.source}</span>
+                  <span className="h-3 w-px bg-gray-700"></span>
+                  <time className="tnum" dateTime={featured.date}>
+                    {formatDateStr(featured.date)}
+                  </time>
+                  {featured.readingTime && (
+                    <>
+                      <span className="h-3 w-px bg-gray-700"></span>
+                      <span>{featured.readingTime} min read</span>
+                    </>
+                  )}
+                  <Link
+                    href={`/news/${featured.slug}`}
+                    className="ml-auto label-mono text-emerald-400 hover:text-emerald-300 transition-colors"
+                  >
+                    Read full →
+                  </Link>
+                </div>
               </div>
-              <Link
-                href={`/news/${featured.slug}`}
-                className="text-lg font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
-              >
-                Read featured article →
-              </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* Category highlights */}
+      {/* Category highlights — digest list */}
       <section className="mb-12">
-        <div className="flex items-center gap-2 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            By category
-          </h2>
-          <Link
-            href="/news"
-            className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
-          >
-            View all news
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categoryHighlights.map((article) => (
-            <div
+        <SectionHeader label="Market digest · one story per section" href="/news" linkLabel="All news" />
+        <div className="border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden divide-y divide-gray-200 dark:divide-gray-800 bg-white dark:bg-gray-900">
+          {categoryHighlights.map((article, i) => (
+            <Link
               key={article.slug}
-              className="border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-900 p-5 hover:border-emerald-300 dark:hover:border-emerald-800 transition-colors"
+              href={`/news/${article.slug}`}
+              className="group flex items-center gap-4 px-4 sm:px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
             >
-              <Link
-                href={`/news/${article.slug}`}
-                className="block"
-              >
-                <div className="flex items-center gap-2 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 mb-2">
-                  {categoryLabel(article.category)}
-                </div>
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white leading-tight mb-2 group-hover:underline line-clamp-2">
+              <span className="label-mono text-gray-300 dark:text-gray-600 tnum w-8 flex-shrink-0">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="label-mono text-emerald-600 dark:text-emerald-400 w-28 sm:w-36 flex-shrink-0 hidden sm:block">
+                {categoryLabel(article.category)}
+              </span>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-display text-sm md:text-base font-semibold text-gray-900 dark:text-white leading-snug line-clamp-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                   {article.title}
                 </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">
-                  {article.excerpt}
+                <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 sm:hidden">
+                  {categoryLabel(article.category)}
                 </p>
-                <div className="flex items-center gap-2 text-[10px] text-gray-500 dark:text-gray-400">
-                  <span>{article.source}</span>
-                  <span className="h-3 w-px bg-gray-300 dark:bg-gray-700"></span>
-                  <time dateTime={article.date}>
-                    {new Date(article.date).toLocaleDateString(undefined, {
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </time>
-                </div>
-              </Link>
-            </div>
+              </div>
+              <time
+                dateTime={article.date}
+                className="label-mono text-gray-400 dark:text-gray-500 tnum flex-shrink-0 hidden sm:block"
+              >
+                {formatDateStr(article.date)}
+              </time>
+            </Link>
           ))}
         </div>
       </section>
 
       {/* Latest articles */}
       <section className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Latest articles
-          </h2>
-          <Link
-            href="/news"
-            className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline"
-          >
-            View all news
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <SectionHeader label="Latest briefings" href="/news" linkLabel="View all news" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {latest.length > 0 ? (
-            latest.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
-            ))
+            latest.map((article) => <ArticleCard key={article.slug} article={article} />)
           ) : (
             <div className="col-span-3 text-center py-16">
-              <p className="text-gray-500 dark:text-gray-400">
-                No articles found.
-              </p>
+              <p className="text-gray-500 dark:text-gray-400">No articles found.</p>
             </div>
           )}
         </div>
@@ -169,6 +160,31 @@ export default function Home() {
       <div className="border-t border-gray-200 dark:border-gray-800 pt-10">
         <NewsletterSignup />
       </div>
+    </div>
+  );
+}
+
+function SectionHeader({
+  label,
+  href,
+  linkLabel,
+}: {
+  label: string;
+  href: string;
+  linkLabel: string;
+}) {
+  return (
+    <div className="flex items-center gap-4 mb-5">
+      <h2 className="label-mono text-gray-900 dark:text-white whitespace-nowrap">
+        {label}
+      </h2>
+      <div className="flex-1 h-px bg-gray-200 dark:bg-gray-800"></div>
+      <Link
+        href={href}
+        className="label-mono text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors whitespace-nowrap"
+      >
+        {linkLabel} →
+      </Link>
     </div>
   );
 }

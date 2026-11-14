@@ -7,8 +7,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">FundpulseBD</span>
+              <span className="pulse-dot inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span className="font-display text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Fund<span className="text-emerald-600 dark:text-emerald-400">pulse</span>BD
+              </span>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 max-w-xs">
               Savings and fund news for Bangladesh, explained simply. Educational
@@ -17,7 +19,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+            <h3 className="label-mono text-gray-900 dark:text-white mb-4">
               Sections
             </h3>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
@@ -55,8 +57,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
-              Legal & Info
+            <h3 className="label-mono text-gray-900 dark:text-white mb-4">
+              Legal &amp; Info
             </h3>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
               <li>
@@ -86,7 +88,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+            <h3 className="label-mono text-gray-900 dark:text-white mb-4">
               Source Credit
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
@@ -100,10 +102,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-800 pt-8">
-          <p className="text-xs text-gray-500 dark:text-gray-500">
-            FundpulseBD — Educational news portal for Bangladesh. Information
-            only. Not investment advice. Not affiliated with BSEC, Bangladesh
-            Bank, or NSD.
+          <p className="label-mono text-gray-400 dark:text-gray-500">
+            FundpulseBD — Educational news portal · Information only · Not investment advice · Not affiliated with BSEC, Bangladesh Bank, or NSD
           </p>
         </div>
       </div>

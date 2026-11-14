@@ -109,11 +109,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </nav>
 
       <article className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 md:p-8 relative">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+        <p className="label-mono text-emerald-600 dark:text-emerald-400 mb-3">
+          {categoryLabel(article.category)}
+        </p>
+        <h1 className="font-display text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight tracking-tight">
           {article.title}
         </h1>
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
-          <span>{article.source}</span>
+        <div className="flex flex-wrap items-center gap-4 label-mono text-gray-400 dark:text-gray-500 mb-6">
+          <span className="text-gray-600 dark:text-gray-300">{article.source}</span>
           <span className="h-3 w-px bg-gray-300 dark:bg-gray-700 mx-1"></span>
           <time dateTime={article.date}>{formatDate(article.date)}</time>
           {article.lastUpdated && (
@@ -134,8 +137,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed mb-8" dangerouslySetInnerHTML={{ __html: marked(article.body) }} />
 
         <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mb-8">
-          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-4">
-            <span className="font-medium text-gray-900 dark:text-white">Source:</span>
+          <div className="flex items-center gap-3 label-mono text-gray-400 dark:text-gray-500 mb-4">
+            <span className="text-gray-900 dark:text-white">Source</span>
             <span>{article.source}</span>
           </div>
           <a
@@ -149,7 +152,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </div>
 
         <div className="mb-8">
-          <h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 uppercase tracking-wider">
+          <h2 className="label-mono text-gray-900 dark:text-white mb-3">
             Share this article
           </h2>
           <ShareButtons title={article.title} url={articleUrl} />
@@ -167,7 +170,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         {related.length > 0 && (
           <section className="border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+            <h2 className="font-display text-lg font-semibold text-gray-900 dark:text-white mb-6">
               Related articles
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -49,15 +49,15 @@ export default async function CategoryPage({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        <p className="label-mono text-emerald-600 dark:text-emerald-400 mb-3">Section</p>
+        <h1 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
           {label}
         </h1>
         <p className="text-gray-600 dark:text-gray-400 text-lg">
           {categoryDescription(p.name)}
         </p>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-500">
-          {articles.length} {articles.length === 1 ? "article" : "articles"} in
-          this category.
+        <p className="label-mono text-gray-400 dark:text-gray-500 mt-3">
+          {articles.length} {articles.length === 1 ? "article" : "articles"}
         </p>
       </div>
 
